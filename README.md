@@ -22,6 +22,10 @@ Docker-symfony gives you everything you need for developing Symfony application.
         # Symfony2
         $ sf doctrine:database:create
         $ sf doctrine:schema:update --force
+        # clear cache
+        $ sf cache:clear
+        # premission on project
+        $ sudo chmod -R 777 app/cache app/logs # Symfony2
         ```
 
 5. Enjoy :-)
