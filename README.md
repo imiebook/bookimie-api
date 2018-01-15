@@ -34,8 +34,8 @@ Docker-symfony gives you everything you need for developing Symfony application.
 
 Just run `docker-compose up -d`, then:
 
-* Symfony app: visit [localhost](http://localhost)  
-* Symfony dev mode: visit [localhost/app_dev.php](http://localhost/app_dev.php)  
+* Symfony app: visit [localhost:3001](http://localhost:3001) (ports 3001)
+* Symfony dev mode: visit [localhost/app_dev.php](http://localhost:3001/app_dev.php) (ports 3001)
 * Logs (Kibana): [localhost:81](http://localhost:81)
 * Logs (files location): logs/nginx and logs/symfony
 
@@ -60,7 +60,7 @@ $ docker-compose ps
 --------------------------------------------------------------------------------------------------
 dockersymfony_db_1            /entrypoint.sh mysqld            Up      0.0.0.0:3306->3306/tcp      
 dockersymfony_elk_1           /usr/bin/supervisord -n -c ...   Up      0.0.0.0:81->80/tcp          
-dockersymfony_nginx_1         nginx                            Up      443/tcp, 0.0.0.0:80->80/tcp
+dockersymfony_nginx_1         nginx                            Up      443/tcp, 0.0.0.0:3001->80/tcp
 dockersymfony_php_1           php-fpm                          Up      0.0.0.0:9000->9000/tcp      
 ```
 
