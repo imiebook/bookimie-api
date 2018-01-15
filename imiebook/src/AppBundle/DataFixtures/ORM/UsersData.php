@@ -3,11 +3,10 @@
 namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\Users;
-use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class UsersData extends AbstractFixture implements OrderedFixtureInterface
+class UsersData extends Fixture
 {
     public function load(ObjectManager $manager)
     {
@@ -21,8 +20,4 @@ class UsersData extends AbstractFixture implements OrderedFixtureInterface
         $this->addReference('user1', $user1);
     }
 
-    public function getOrder()
-    {
-        return 2;
-    }
 }

@@ -31,13 +31,17 @@ API REST FOSRESTController : [Documentation](https://zestedesavoir.com/tutoriels
         ```bash
         $ docker-compose exec php bash
         $ composer install
-        # Symfony2
-        $ sf doctrine:database:create
-        $ sf doctrine:schema:update --force
+        # Symfony 3
+        $ php bin/console  doctrine:database:create
+        $ php bin/console  doctrine:schema:update --force
+        $ php bin/console doctrine:fixtures:load # load fixtures
         # clear cache
-        $ sf cache:clear
+        $ php bin/console cache:clear
         # premission on project
-        $ sudo chmod -R 777 app/cache app/logs # Symfony2
+        $ sudo chmod -R 777 app/cache app/logs # Symfony 3
+        $ HTTPDUSER=`ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
+        $ setfacl -R -m u:$HTTPDUSER:rwX -m u:`whoami`:rwX var
+        $ setfacl -dR -m u:$HTTPDUSER:rwX -m u:`whoami`:rwX var
         ```
 
 5. Enjoy :-)

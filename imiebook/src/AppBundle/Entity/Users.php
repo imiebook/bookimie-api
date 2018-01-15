@@ -24,26 +24,16 @@ class Users
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="surname", type="string", length=255)
      */
     private $surname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="lastname", type="string", length=255)
      */
     private $lastname;
-
-    /**
-     * Construct
-     * @param string $surname
-     * @param string $lastname
-     */
-    public function __construct($surname, $lastname) {
-        $this->surname = $surname;
-        $this->lastname = $lastname;
-    }
 
     public function toArray() {
         return array(
@@ -51,7 +41,6 @@ class Users
             "surname" => $this->surname
         );
     }
-
 
     /**
      * Get the value of Id
