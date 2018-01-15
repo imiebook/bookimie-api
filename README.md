@@ -4,6 +4,10 @@
 
 Docker-symfony gives you everything you need for developing Symfony application. This complete stack run with docker and [docker-compose (1.7 or higher)](https://docs.docker.com/compose/).
 
+## Sources
+
+API REST FOSRESTController : [Documentation](https://zestedesavoir.com/tutoriels/1280/creez-une-api-rest-avec-symfony-3/developpement-de-lapi-rest/fosrestbundle-et-symfony-a-la-rescousse/#2-routage-avec-fosrestbundle).
+
 ## Installation
 
 
