@@ -118,4 +118,7 @@ $ docker rm $(docker ps -aq)
 
 # Delete all images
 $ docker rmi $(docker images -q)
+
+# Delete database
+$ php /var/www/symfony/bin/console doctrine:database:drop --force
 ```
