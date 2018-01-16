@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les annotations
 
 use AppBundle\Entity\Users;
+use AppBundle\Validator\UsersValidator;
 
 class UsersController extends Controller
 {
@@ -46,6 +47,45 @@ class UsersController extends Controller
         }
 
         return $user;
+    }
+
+    /**
+     * @Rest\View(statusCode=Response::HTTP_CREATED)
+     * @Rest\Post("/users")
+     */
+    public function postUserAction(Request $request)
+    {
+        $user = new Users();
+        $form = $this->createForm(UsersValidator::class, $user);
+
+        $form->submit($request->request->all()); // Validation des données
+
+        if ($form->isValid()) {
+            $em = $this->get('doctrine.orm.entity_manager');
+            $em->persist($user);
+            $em->flush();
+            return $user;
+        }
+        // if error return explication
+        return $form;
+    }
+
+    /**
+     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
+     * @Rest\Delete("/users/{id}")
+     */
+    public function removeUserAction(Request $request)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $user = $em->getRepository('AppBundle:Users')
+            ->find($request->get('id'));
+
+        if (empty($user)) {
+            return new JsonResponse(['message' => 'Not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        $em->remove($user);
+        $em->flush();
     }
 
 }

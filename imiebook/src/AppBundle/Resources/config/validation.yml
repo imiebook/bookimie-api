@@ -1,0 +1,14 @@
+# src/AppBundle/Resources/config/validation.yml
+AppBundle\Entity\Users:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+    properties:
+        lastname:
+            - NotBlank: ~
+            - Type: string
+        surname:
+            - NotBlank: ~
+            - Type: string
+        email:
+            - NotBlank: ~
+            - Type: string

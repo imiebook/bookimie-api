@@ -13,6 +13,7 @@ class UsersData extends Fixture
         $user1 = new Users();
         $user1->setLastname('Erwan');
         $user1->setSurname('Guillet');
+        $user1->setEmail('erwan.guillet@gmail.fr');
         $manager->persist($user1);
 
         $manager->flush();

@@ -33,6 +33,13 @@ class Users
     private $lastname;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255)
+     */
+    private $email;
+
+    /**
      * Get the value of Id
      *
      * @return int
@@ -100,6 +107,30 @@ class Users
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set the value of Email
+     *
+     * @param string email
+     *
+     * @return self
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
 
         return $this;
     }
