@@ -7,9 +7,9 @@ Docker-symfony gives you everything you need for developing Symfony application.
 ## Routing
 
 ```bash
-    get all /users
-    get user /users/{id}
-    get experiences of user /users/{id}/experiences
+~ get all /users
+~ get user /users/{id}
+~ get experiences of user /users/{id}/experiences
 ```
 
 ## Sources
