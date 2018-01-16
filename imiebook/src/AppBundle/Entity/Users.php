@@ -1,14 +1,11 @@
 <?php
-
+// src/Entity/Users.php
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Application
- *
- * @ORM\Table(name="application")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ApplicationRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UsersRepository")
  */
 class Users
 {
@@ -34,13 +31,6 @@ class Users
      * @ORM\Column(name="lastname", type="string", length=255)
      */
     private $lastname;
-
-    public function toArray() {
-        return array(
-            "lastname" => $this->lastname,
-            "surname" => $this->surname
-        );
-    }
 
     /**
      * Get the value of Id
@@ -112,6 +102,14 @@ class Users
         $this->lastname = $lastname;
 
         return $this;
+    }
+
+    /**
+     * This object to array
+     * @return array
+     */
+    public function toArray() {
+        return get_object_vars($this);
     }
 
 }

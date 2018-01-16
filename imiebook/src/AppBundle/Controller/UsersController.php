@@ -14,9 +14,18 @@ class UsersController extends Controller
 
     public function getUsersAction(Request $request)
     {
-        $user = new Users("Erwan", "Guillet");
+        $users = $this->getDoctrine()
+            ->getRepository(Users::class)
+            ->findAll();
+        // $users = $usersRepo->findAll();
+        $tabUsers = [];
 
-        return new JsonResponse($user->toArray());
+        foreach($users as $key => $user) {
+            $tabUsers[] = $user->toArray();
+        }
+
+
+        return new JsonResponse($tabUsers);
     }
 
 }
