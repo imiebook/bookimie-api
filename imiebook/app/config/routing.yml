@@ -5,3 +5,8 @@ app:
 users:
     type:     rest
     resource: AppBundle\Controller\UsersController
+
+# app/config/routing.yml
+fos_user:
+    type:     rest
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

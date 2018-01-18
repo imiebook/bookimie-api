@@ -2,12 +2,14 @@
 // src/Entity/Users.php
 namespace AppBundle\Entity;
 
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ORM\Table(name="fos_user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UsersRepository")
  */
-class Users
+class Users extends BaseUser
 {
     /**
      * @var int
@@ -16,7 +18,7 @@ class Users
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -32,12 +34,10 @@ class Users
      */
     private $lastname;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255)
-     */
-    private $email;
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * Get the value of Id
@@ -107,30 +107,6 @@ class Users
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of Email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set the value of Email
-     *
-     * @param string email
-     *
-     * @return self
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
 
         return $this;
     }
