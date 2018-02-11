@@ -11,6 +11,8 @@ class UsersData extends Fixture
     public function load(ObjectManager $manager)
     {
         $user1 = new Users();
+        $user1->setUsername('test');
+        $user1->setPassword('test');
         $user1->setLastname('Erwan');
         $user1->setSurname('Guillet');
         $user1->setEmail('erwan.guillet@gmail.fr');

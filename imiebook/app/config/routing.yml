@@ -7,6 +7,9 @@ users:
     resource: AppBundle\Controller\UsersController
 
 # app/config/routing.yml
+api_login_check:
+    path: /api/login_check
+
 fos_user:
     type:     rest
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

@@ -45,6 +45,12 @@ API REST FOSRESTController : [Documentation](https://zestedesavoir.com/tutoriels
     $ HTTPDUSER=`ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
     $ setfacl -R -m u:$HTTPDUSER:rwX -m u:`whoami`:rwX var
     $ setfacl -dR -m u:$HTTPDUSER:rwX -m u:`whoami`:rwX var
+
+    # Public and Private key - jwt
+    $ mkdir -p var/jwt # For Symfony3+, no need of the -p option
+    # Pass phrase 'imie'
+    $ openssl genrsa -out var/jwt/private.pem -aes256 4096
+    $ openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem
     ```
 
 5. Enjoy :-)
