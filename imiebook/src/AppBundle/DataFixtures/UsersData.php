@@ -12,7 +12,7 @@ class UsersData extends Fixture
     {
         $user1 = new Users();
         $user1->setUsername('test');
-        $user1->setPassword('test');
+        $user1->setPassword('$2y$13$1/4O/mYBH4tzEL2yArSb8uTI08SQvILgmb0Pbyl/NZqatpYdy83lO');
         $user1->setLastname('Erwan');
         $user1->setSurname('Guillet');
         $user1->setEmail('test@test.fr');
