@@ -1,6 +1,7 @@
 security:
 
     encoders:
+        AppBundle\Entity\User: bcrypt
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:

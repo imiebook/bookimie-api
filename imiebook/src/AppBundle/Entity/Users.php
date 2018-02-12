@@ -34,6 +34,27 @@ class Users extends BaseUser
      */
     private $lastname;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=14, nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=1000, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mobility", type="boolean", nullable=true)
+     */
+    private $mobility;
+
     public function __construct()
     {
         parent::__construct();
@@ -107,6 +128,78 @@ class Users extends BaseUser
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set the value of Phone
+     *
+     * @param string phone
+     *
+     * @return self
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set the value of Description
+     *
+     * @param string description
+     *
+     * @return self
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Mobility
+     *
+     * @return string
+     */
+    public function getMobility()
+    {
+        return $this->mobility;
+    }
+
+    /**
+     * Set the value of Mobility
+     *
+     * @param string mobility
+     *
+     * @return self
+     */
+    public function setMobility($mobility)
+    {
+        $this->mobility = $mobility;
 
         return $this;
     }
