@@ -15,7 +15,7 @@ class UsersData extends Fixture
         $user1->setPassword('test');
         $user1->setLastname('Erwan');
         $user1->setSurname('Guillet');
-        $user1->setEmail('erwan.guillet@gmail.fr');
+        $user1->setEmail('test@test.fr');
         $manager->persist($user1);
 
         $manager->flush();
