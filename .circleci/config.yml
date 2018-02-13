@@ -21,7 +21,20 @@ jobs:
             - run:
                   name: Init Symfony
                   command: |
-                    docker-compose exec -d php bash 'composer install'
+                    docker-compose exec -d php bash 'composer install
+                    && php bin/console  doctrine:database:create
+                    && php bin/console  doctrine:schema:update --force
+                    && php bin/console doctrine:fixtures:load
+                    && php bin/console cache:clear
+                    && HTTPDUSER=`ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
+                    && setfacl -R -m u:$HTTPDUSER:rwX -m u:`whoami`:rwX var
+                    && setfacl -dR -m u:$HTTPDUSER:rwX -m u:`whoami`:rwX var
+                    && mkdir -p var/jwt
+                    && openssl genrsa -passout pass:imie -out var/jwt/private.pem -aes256 4096
+                    && openssl rsa passin pass:imie -pubout -in var/jwt/private.pem -out var/jwt/public.pem
+                    && rm /app/config/parameters.yml
+                    && mv /app/config/parameters.yml.dist /app/config/parameters.yml
+                    && exit'
 
 
             - run:
