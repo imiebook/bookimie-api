@@ -21,8 +21,8 @@ jobs:
             - run:
                   name: Init Symfony
                   command: |
-                    docker-compose run php bash "composer install"
-                    
+                    docker-compose exec -d php bash 'composer install'
+
 
             - run:
                 name: Test curl login
