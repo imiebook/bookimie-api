@@ -30,7 +30,7 @@ jobs:
                     docker-compose exec php chown -R www-data var
                     docker-compose exec php mkdir -p var/jwt
                     docker-compose exec php openssl genrsa -passout pass:imie -out var/jwt/private.pem -aes256 4096
-                    docker-compose exec php openssl rsa passin pass:imie -pubout -in var/jwt/private.pem -out var/jwt/public.pem
+                    docker-compose exec php openssl rsa -passin pass:imie -pubout -in var/jwt/private.pem -out var/jwt/public.pem
 
             - run:
                 name: Test curl login
