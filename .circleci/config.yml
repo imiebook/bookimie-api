@@ -12,9 +12,6 @@ jobs:
     steps:
       - checkout
 
-      - setup_remote_docker
-
-
       - run:
           name: BuildApplication
           command: docker-compose build
