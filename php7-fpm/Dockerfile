@@ -38,3 +38,18 @@ RUN echo 'alias sf="php app/console"' >> ~/.bashrc
 RUN echo 'alias sf3="php bin/console"' >> ~/.bashrc
 
 WORKDIR /var/www/symfony
+
+RUN composer install
+RUN php bin/console  doctrine:database:create
+RUN php bin/console  doctrine:schema:update --force
+RUN php bin/console doctrine:fixtures:load
+RUN php bin/console cache:clear
+RUN HTTPDUSER=`ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
+RUN setfacl -R -m u:$HTTPDUSER:rwX -m u:`whoami`:rwX var
+RUN setfacl -dR -m u:$HTTPDUSER:rwX -m u:`whoami`:rwX var
+RUN mkdir -p var/jwt
+RUN openssl genrsa -passout pass:imie -out var/jwt/private.pem -aes256 4096
+RUN openssl rsa passin pass:imie -pubout -in var/jwt/private.pem -out var/jwt/public.pem
+RUN rm /app/config/parameters.yml
+RUN mv /app/config/parameters.yml.dist /app/config/parameters.yml
+RUN exit"
