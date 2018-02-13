@@ -1,5 +1,10 @@
-build:
-  type: build
-  image: node:8
-  script:
-    - npm run build
+version: 2
+jobs:
+  build:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run:
+          name: BuildApplication
+          command: docker-compose build
