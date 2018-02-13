@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les annotations
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 use AppBundle\Entity\Users;
 use AppBundle\Validator\UsersValidator;
 
@@ -26,7 +28,9 @@ class UsersController extends Controller
         $tabUsers = [];
 
         foreach($users as $key => $user) {
-            $tabUsers[] = $user->toArray();
+            // hide children relation
+            $user->setDegres(new ArrayCollection());
+            $tabUsers[] = $user;
         }
 
         return $users;
@@ -46,6 +50,9 @@ class UsersController extends Controller
             return new JsonResponse(['message' => 'Not found'], Response::HTTP_NOT_FOUND);
         }
 
+        // hide children relation
+        $user->setDegres(new ArrayCollection());
+        
         return $user;
     }
 

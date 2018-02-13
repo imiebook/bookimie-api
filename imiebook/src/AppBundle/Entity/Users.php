@@ -234,6 +234,30 @@ class Users extends BaseUser
     }
 
     /**
+     * Get the value of Degres
+     *
+     * @return mixed
+     */
+    public function getDegres()
+    {
+        return $this->degres;
+    }
+
+    /**
+     * Set the value of Degres
+     *
+     * @param mixed degres
+     *
+     * @return self
+     */
+    public function setDegres($degres)
+    {
+        $this->degres = $degres;
+
+        return $this;
+    }
+
+    /**
      * This object to array
      * @return array
      */
