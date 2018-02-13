@@ -17,11 +17,11 @@ jobs:
                   command: |
                     docker-compose build
                     docker-compose up -d
+                    docker-compose exec php bash
 
             - run:
                   name: Init Symfony
                   command: |
-                    docker-compose exec php bash
                     composer install
                     php bin/console  doctrine:database:create
                     php bin/console  doctrine:schema:update --force
