@@ -1,18 +1,10 @@
-version: 2
+version: 1
 
-general:
-  branches:
-    only:
-     - egt_circleci
-jobs:
-  build:
-    docker:
-      - image: debian:stretch
-    steps:
-      - checkout
+machine:
+  services:
+    - docker
 
-      - setup_remote_docker
-
-      - run:
-          name: BuildApplication
-          command: docker-compose build
+test:
+  post:
+    - docker-compose build
+    - docker-compose up -d
