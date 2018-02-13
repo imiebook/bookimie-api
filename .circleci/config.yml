@@ -21,6 +21,8 @@ jobs:
             - run:
                   name: Init Symfony
                   command: |
+                    docker-compose exec php rm /app/config/parameters.yml
+                    docker-compose exec php mv /app/config/parameters.yml.dist /app/config/parameters.yml
                     docker-compose exec php composer install
                     docker-compose exec php bin/console  doctrine:database:create
                     docker-compose exec php bin/console  doctrine:schema:update --force
@@ -32,8 +34,6 @@ jobs:
                     docker-compose exec php mkdir -p var/jwt
                     docker-compose exec php openssl genrsa -passout pass:imie -out var/jwt/private.pem -aes256 4096
                     docker-compose exec php openssl rsa passin pass:imie -pubout -in var/jwt/private.pem -out var/jwt/public.pem
-                    docker-compose exec php rm /app/config/parameters.yml
-                    docker-compose exec php mv /app/config/parameters.yml.dist /app/config/parameters.yml
 
             - run:
                 name: Test curl login
