@@ -16,7 +16,7 @@ jobs:
       # Install lib necessary
       - run:
           name: Curl
-          command: sudo apt-get install curl
+          command: apt-get install curl
 
       # This should go into custom primary image, here's only for the sake of explanation
       - run:
