@@ -27,9 +27,7 @@ jobs:
                     docker-compose exec php bin/console  doctrine:schema:update --force
                     docker-compose exec php bin/console doctrine:fixtures:load -n
                     docker-compose exec php bin/console cache:clear
-                    docker-compose exec php HTTPDUSER=`ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
-                    docker-compose exec php setfacl -R -m u:$HTTPDUSER:rwX -m u:`whoami`:rwX var
-                    docker-compose exec php setfacl -dR -m u:$HTTPDUSER:rwX -m u:`whoami`:rwX var
+                    docker-compose exec php chown -R www-data var
                     docker-compose exec php mkdir -p var/jwt
                     docker-compose exec php openssl genrsa -passout pass:imie -out var/jwt/private.pem -aes256 4096
                     docker-compose exec php openssl rsa passin pass:imie -pubout -in var/jwt/private.pem -out var/jwt/public.pem
