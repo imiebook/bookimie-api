@@ -6,6 +6,9 @@ general:
      - egt_circleci
 jobs:
   build:
+    machine:
+      image: circleci/classic:201708-01
+
     steps:
       - checkout
 
