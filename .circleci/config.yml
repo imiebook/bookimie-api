@@ -3,7 +3,8 @@ version: 2
 general:
     branches:
         only:
-            - egt_circleci
+            - develop
+            - master
 jobs:
     build:
         machine:
@@ -33,6 +34,6 @@ jobs:
                     docker-compose exec php openssl rsa -passin pass:imie -pubout -in var/jwt/private.pem -out var/jwt/public.pem
 
             - run:
-                name: Test curl login
+                name: Test PHPUnit
                 command: |
-                    curl -X POST http://127.0.0.1:3001/app_dev.php/login_check -d _username=test@test.fr -d _password=p@ssword
+                    docker-compose exec php vendor/bin/phpunit
