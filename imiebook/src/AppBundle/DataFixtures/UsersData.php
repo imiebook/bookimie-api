@@ -5,11 +5,12 @@ namespace AppBundle\DataFixtures;
 use AppBundle\Entity\Users;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class UsersData extends Fixture implements ContainerAwareInterface
+class UsersData extends Fixture implements ContainerAwareInterface, OrderedFixtureInterface
 {
 
     /**
@@ -32,11 +33,20 @@ class UsersData extends Fixture implements ContainerAwareInterface
         $user1->setSurname('Guillet');
         $user1->setEmail('test@test.fr');
         $user1->setEnabled(true);
+
         $manager->persist($user1);
 
         $manager->flush();
 
         $this->addReference('user1', $user1);
+    }
+
+    /**
+     * Order to trigger fixture
+     */
+    public function getOrder()
+    {
+        return 1;
     }
 
 }

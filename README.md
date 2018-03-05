@@ -127,4 +127,9 @@ $ docker rmi $(docker images -q)
 
 # Delete database
 $ php /var/www/symfony/bin/console doctrine:database:drop --force
+
+# PostgreSQL
+$ docker-compose exec db bash
+$ psql imiebook postgres # connect
+$ \dt # list tables
 ```

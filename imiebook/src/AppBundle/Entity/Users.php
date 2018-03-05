@@ -3,7 +3,10 @@
 namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+
+use AppBundle\Entity\Degres;
 
 /**
  * @ORM\Table(name="fos_user")
@@ -49,15 +52,41 @@ class Users extends BaseUser
     private $description;
 
     /**
-     * @var string
+     * @var boolean
      *
      * @ORM\Column(name="mobility", type="boolean", nullable=true)
      */
     private $mobility;
 
+    /**
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Degres", mappedBy="user")
+    */
+    private $degres;
+
     public function __construct()
     {
         parent::__construct();
+        $this->degres = new ArrayCollection();
+    }
+
+    /**
+     * Add degre
+     * @param Degres $degre [description]
+     */
+    public function addDegre(Degres $degre)
+    {
+        $this->degres[] = $degre;
+
+        return $this;
+    }
+
+    /**
+     * Remove degre
+     * @param  Degres $degre [description]
+     */
+    public function removeDegre(Degres $degre)
+    {
+        $this->degres->removeElement($degre);
     }
 
     /**
@@ -200,6 +229,30 @@ class Users extends BaseUser
     public function setMobility($mobility)
     {
         $this->mobility = $mobility;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Degres
+     *
+     * @return mixed
+     */
+    public function getDegres()
+    {
+        return $this->degres;
+    }
+
+    /**
+     * Set the value of Degres
+     *
+     * @param mixed degres
+     *
+     * @return self
+     */
+    public function setDegres($degres)
+    {
+        $this->degres = $degres;
 
         return $this;
     }
