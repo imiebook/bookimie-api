@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 use AppBundle\Entity\Users;
 use AppBundle\Validator\UsersValidator;
+use AppBundle\Service\MailerService;
 
 class UsersController extends Controller
 {
@@ -52,9 +53,39 @@ class UsersController extends Controller
 
         // hide children relation
         $user->setDegres(new ArrayCollection());
-        
+
         return $user;
     }
+
+    /**
+     * @Rest\View()
+     * @Rest\Get("/resetpassword/{email}")
+     */
+     public function getResetPasswordRequestAction(Request $request)
+     {
+         $email = $request->get('email');
+         $userManager = $this->get('fos_user.user_manager');
+         $user = $userManager->findUserByEmail($email);
+         if (null === $user) {
+             throw $this->createNotFoundException();
+         }
+
+         if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
+             throw new BadRequestHttpException('Password request alerady requested');
+         }
+
+         if (null === $user->getConfirmationToken()) {
+             /** @var $tokenGenerator \FOS\UserBundle\Util\TokenGeneratorInterface */
+             $tokenGenerator = $this->get('fos_user.util.token_generator');
+             $user->setConfirmationToken($tokenGenerator->generateToken());
+         }
+
+         $this->get('fos_user.mailer')->sendResettingEmailMessage($user);
+         $user->setPasswordRequestedAt(new \DateTime());
+         $this->get('fos_user.user_manager')->updateUser($user);
+
+         return new JsonResponse(['message' => 'Password is reset.'], Response::HTTP_OK);
+     }
 
     /**
      * @Rest\View(statusCode=Response::HTTP_CREATED)

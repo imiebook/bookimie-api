@@ -16,4 +16,11 @@ fos_user:
         mailer: fos_user.mailer.twig_swift
     from_email:
         address: "%mailer_user%"
-        sender_name: "%mailer_user%"
+        sender_name: "Imie Book"
+    resetting:
+        token_ttl: 0
+        email:
+            template:   email/password_resetting.email.twig
+            from_email:
+                address: "%mailer_user%"
+                sender_name: "Imie Book - Demo Resetting"
