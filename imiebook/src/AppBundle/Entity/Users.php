@@ -59,8 +59,12 @@ class Users extends BaseUser
     private $mobility;
 
     /**
-    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Degres", mappedBy="user")
-    */
+     * @ORM\ManyToMany(targetEntity="Degres", cascade={"all"})
+     * @ORM\JoinTable(name="user_degres",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="degres_id", referencedColumnName="id", unique=true)}
+     * )
+     */
     private $degres;
 
     public function __construct()

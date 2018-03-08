@@ -40,7 +40,7 @@ class DegresController extends Controller
 
         $degre = $this->getDoctrine()
             ->getRepository(Degres::class)
-            ->find($request->get('id'));   
+            ->find($request->get('id'));
         if (empty($degre)){
             return new JsonResponse(['message' => 'Degre not found'], Response::HTTP_NOT_FOUND);
         }
@@ -57,16 +57,15 @@ class DegresController extends Controller
             ->getToken()
             ->getUser();
 
-        $degre = new Degres;
-        $degre->setUser($user);
+        $degre = new Degres();
         $form = $this->createForm(DegresValidator::class, $degre);
 
         $form->submit($request->request->all()); // Validation des données
 
         if ($form->isValid()){
-           
+            $user->addDegre($degre);
             $em = $this->get('doctrine.orm.entity_manager');
-            $em->persist($degre);
+            $em->persist($user);
             $em->flush();
             return $degre;
         }

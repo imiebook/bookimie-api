@@ -19,7 +19,6 @@ class DegresData extends Fixture implements OrderedFixtureInterface
         $degre1->setEnterprise('IMIE');
         $degre1->setDateStart(new \DateTime("now"));
         $degre1->setDateEnd(new \DateTime("now"));
-        $degre1->setUser($this->getReference('user1'));
         $this->addReference('degre1', $degre1);
 
         $manager->persist($degre1);
@@ -32,7 +31,7 @@ class DegresData extends Fixture implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-        return 2;
+        return 1;
     }
 
 }

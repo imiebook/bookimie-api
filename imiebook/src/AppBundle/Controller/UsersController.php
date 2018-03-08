@@ -52,7 +52,7 @@ class UsersController extends Controller
 
         // hide children relation
         $user->setDegres(new ArrayCollection());
-        
+
         return $user;
     }
 

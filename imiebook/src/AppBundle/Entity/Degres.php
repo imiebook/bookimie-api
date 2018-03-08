@@ -57,12 +57,6 @@ class Degres
      */
     private $dateEnd;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Degres", inversedBy="user")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $user;
-
 
     /**
      * Get the value of Id
@@ -159,21 +153,6 @@ class Degres
 
         return $this;
     }
-
-    /**
-     * Set the value of User
-     *
-     * @param User user
-     *
-     * @return self
-     */
-    public function setUser(Users $user)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
 
     /**
      * Get the value of Date Start

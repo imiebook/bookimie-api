@@ -3,6 +3,7 @@
 namespace AppBundle\DataFixtures;
 
 use AppBundle\Entity\Users;
+use AppBundle\Entity\Degres;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -33,6 +34,7 @@ class UsersData extends Fixture implements ContainerAwareInterface, OrderedFixtu
         $user1->setSurname('Guillet');
         $user1->setEmail('test@test.fr');
         $user1->setEnabled(true);
+        $user1->addDegre($this->getReference('degre1'));
 
         $manager->persist($user1);
 
@@ -46,7 +48,7 @@ class UsersData extends Fixture implements ContainerAwareInterface, OrderedFixtu
      */
     public function getOrder()
     {
-        return 1;
+        return 2;
     }
 
 }
