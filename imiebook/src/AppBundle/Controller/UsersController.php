@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 use AppBundle\Entity\Users;
 use AppBundle\Validator\UsersValidator;
+use AppBundle\Service\UsersService;
 
 class UsersController extends Controller
 {
@@ -55,6 +56,26 @@ class UsersController extends Controller
 
         return $user;
     }
+
+    /**
+     * @Rest\View()
+     * @Rest\Get("/resetpassword/{email}")
+     */
+     public function getResetPasswordRequestAction(Request $request, \Swift_Mailer $mailer)
+     {
+         $email = $request->get('email');
+         $userManager = $this->get('fos_user.user_manager');
+         $user = $userManager->findUserByEmail($email);
+         if (null === $user) {
+             throw $this->createNotFoundException();
+         }
+
+         $usersService = $this->get('users_service');
+         // reset password with randum string and notify by mail this user
+         $usersService->resetPasswordUser($user);
+
+         return new JsonResponse(['message' => 'Password is reset.'], Response::HTTP_OK);
+     }
 
     /**
      * @Rest\View(statusCode=Response::HTTP_CREATED)

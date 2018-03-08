@@ -10,10 +10,10 @@ parameters:
     # You should uncomment this if you want to use pdo_sqlite
     #database_path: "%kernel.root_dir%/data.db3"
 
-    mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: contact@imie.fr
-    mailer_password: password
+    mailer_transport: gmail
+    mailer_host: smtp.gmail.com
+    mailer_user: imieUmake@gmail.com
+    mailer_password: imieUmake18
 
     # Authentification
     jwt_private_key_path: '%kernel.root_dir%/../var/jwt/private.pem' # ssh private key path
