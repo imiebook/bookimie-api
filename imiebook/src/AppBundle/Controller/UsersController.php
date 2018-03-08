@@ -31,6 +31,7 @@ class UsersController extends Controller
         foreach($users as $key => $user) {
             // hide children relation
             $user->setDegres(new ArrayCollection());
+            $user->setExperiences(new ArrayCollection());
             $tabUsers[] = $user;
         }
 
@@ -53,6 +54,7 @@ class UsersController extends Controller
 
         // hide children relation
         $user->setDegres(new ArrayCollection());
+        $user->setExperiences(new ArrayCollection());
 
         return $user;
     }

@@ -4,6 +4,7 @@ namespace AppBundle\DataFixtures;
 
 use AppBundle\Entity\Users;
 use AppBundle\Entity\Degres;
+use AppBundle\Entity\Experiences;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -35,6 +36,7 @@ class UsersData extends Fixture implements ContainerAwareInterface, OrderedFixtu
         $user1->setEmail('test@test.fr');
         $user1->setEnabled(true);
         $user1->addDegre($this->getReference('degre1'));
+        $user1->addExperiences($this->getReference('experiences1'));
 
         $user2 = new Users();
         $user2->setUsername('imieUmake');
@@ -59,7 +61,7 @@ class UsersData extends Fixture implements ContainerAwareInterface, OrderedFixtu
      */
     public function getOrder()
     {
-        return 2;
+        return 3;
     }
 
 }

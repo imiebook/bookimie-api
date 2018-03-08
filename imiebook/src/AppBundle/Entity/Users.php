@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 use AppBundle\Entity\Degres;
+use AppBundle\Entity\Experiences;
 
 /**
  * @ORM\Table(name="fos_user")
@@ -67,6 +68,15 @@ class Users extends BaseUser
      */
     private $degres;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Experiences", cascade={"all"})
+     * @ORM\JoinTable(name="user_experiences",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="experiences_id", referencedColumnName="id", unique=true)}
+     * )
+     */
+    private $experiences;
+
     public function __construct()
     {
         parent::__construct();
@@ -91,6 +101,26 @@ class Users extends BaseUser
     public function removeDegre(Degres $degre)
     {
         $this->degres->removeElement($degre);
+    }
+
+    /**
+     * Add experiences
+     * @param Experiences $experiences
+     */
+    public function addExperiences(Experiences $experiences)
+    {
+        $this->experiences[] = $experiences;
+
+        return $this;
+    }
+
+    /**
+     * Remove experiences
+     * @param  Experiences $experiences
+     */
+    public function removeExperiences(Experiences $experiences)
+    {
+        $this->experiences->removeElement($experiences);
     }
 
     /**
@@ -267,6 +297,30 @@ class Users extends BaseUser
      */
     public function toArray() {
         return get_object_vars($this);
+    }
+
+    /**
+     * Get the value of Experiences
+     *
+     * @return mixed
+     */
+    public function getExperiences()
+    {
+        return $this->experiences;
+    }
+
+    /**
+     * Set the value of Experiences
+     *
+     * @param mixed experiences
+     *
+     * @return self
+     */
+    public function setExperiences($experiences)
+    {
+        $this->experiences = $experiences;
+
+        return $this;
     }
 
 }
