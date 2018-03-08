@@ -1,2 +1,8 @@
 # app/config/services.yml
 services:
+    users_service:
+            class: AppBundle\Service\UsersService
+            arguments:
+              - "@doctrine.orm.entity_manager"
+              - "@mailer"
+              - "@service_container"
