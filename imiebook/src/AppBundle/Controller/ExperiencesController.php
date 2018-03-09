@@ -36,7 +36,7 @@ class ExperiencesController extends Controller
      * @Rest\View()
      * @Rest\Get("/experiences/{id}")
      */
-    public function getDegreAction(Request $request){
+    public function getExperienceAction(Request $request){
 
         $experience = $this->getDoctrine()
             ->getRepository(Experiences::class)
@@ -44,14 +44,14 @@ class ExperiencesController extends Controller
         if (empty($experience)){
             return new JsonResponse(['message' => 'Experience not found'], Response::HTTP_NOT_FOUND);
         }
-        return $degre;
+        return $experience;
     }
 
     /**
      * @Rest\View()
      * @Rest\Post("/experiences")
      */
-    public function postDegreAction(Request $request){
+    public function postExperiencesAction(Request $request){
 
         $user = $this->get('security.token_storage')
             ->getToken()
@@ -77,7 +77,7 @@ class ExperiencesController extends Controller
      * @Rest\View()
      * @Rest\Put("/experiences/{id}")
      */
-    public function putDegreAction(Request $request){
+    public function putExperiencesAction(Request $request){
 
         $user = $this->get('security.token_storage')
             ->getToken()

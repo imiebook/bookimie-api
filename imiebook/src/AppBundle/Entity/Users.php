@@ -60,7 +60,7 @@ class Users extends BaseUser
     private $mobility;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Degres", cascade={"all"})
+     * @ORM\ManyToMany(targetEntity="Degres", orphanRemoval=true, cascade={"all"})
      * @ORM\JoinTable(name="user_degres",
      *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="degres_id", referencedColumnName="id", unique=true)}
@@ -69,7 +69,7 @@ class Users extends BaseUser
     private $degres;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Experiences", cascade={"all"})
+     * @ORM\ManyToMany(targetEntity="Experiences", orphanRemoval=true, cascade={"all"})
      * @ORM\JoinTable(name="user_experiences",
      *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="experiences_id", referencedColumnName="id", unique=true)}
