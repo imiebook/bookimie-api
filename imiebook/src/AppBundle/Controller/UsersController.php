@@ -116,6 +116,8 @@ class UsersController extends Controller
 
         $em->remove($user);
         $em->flush();
+
+        return new JsonResponse(['message' => 'Success of delete request'], Response::HTTP_OK);
     }
 
 }

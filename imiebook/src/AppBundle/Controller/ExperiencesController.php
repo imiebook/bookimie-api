@@ -58,7 +58,7 @@ class ExperiencesController extends Controller
             ->getUser();
 
         $experiences = new Experiences();
-        $form = $this->createForm(ExpereincesValidator::class, $experiences);
+        $form = $this->createForm(ExperiencesValidator::class, $experiences);
 
         $form->submit($request->request->all()); // Validation des données
 
@@ -71,6 +71,73 @@ class ExperiencesController extends Controller
         }
         // if error return explication
         return $form;
+    }
+
+    /**
+     * @Rest\View()
+     * @Rest\Put("/experiences/{id}")
+     */
+    public function putDegreAction(Request $request){
+
+        $user = $this->get('security.token_storage')
+            ->getToken()
+            ->getUser();
+
+        // find experiences in list experiences of user
+        $experiences = null;
+        for ($i = 0; $i < sizeof($user->getExperiences()); $i++) {
+            if ($user->getExperiences()[$i]->getId() == $request->get('id')) {
+                $experiences = $user->getExperiences()[$i];
+            }
+        }
+        // no experiences return 404
+        if ($experiences == null) {
+            return new JsonResponse(['message' => 'Experience not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        $form = $this->createForm(ExperiencesValidator::class, $experiences);
+        // Validate data
+        // Keep last data if no new data is present in request
+        $form->submit($request->request->all(), false);
+
+        if ($form->isValid()){
+            $em = $this->get('doctrine.orm.entity_manager');
+            $em->merge($experiences);
+            $em->flush();
+            return $experiences;
+        }
+        // if error return explication
+        return $form;
+    }
+
+    /**
+     * @Rest\View()
+     * @Rest\Delete("/experiences/{id}")
+     */
+    public function deleteExperiencesAction(Request $request){
+
+        $user = $this->get('security.token_storage')
+            ->getToken()
+            ->getUser();
+
+        // find experiences in list experiences of user
+        $experiences = null;
+        for ($i = 0; $i < sizeof($user->getExperiences()); $i++) {
+            if ($user->getExperiences()[$i]->getId() == $request->get('id')) {
+                $experiences = $user->getExperiences()[$i];
+            }
+        }
+        // no experiences return 404
+        if ($experiences == null) {
+            return new JsonResponse(['message' => 'Experience not found'], Response::HTTP_NOT_FOUND);
+        }
+        // remove experience in liste of user experiences
+        $user->removeExperiences($experiences);
+        $em = $this->get('doctrine.orm.entity_manager');
+        $em->persist($user);
+        $em->flush();
+
+        return new JsonResponse(['message' => 'Success of delete request'], Response::HTTP_OK);
     }
 
 

@@ -5,7 +5,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class DegresValidator extends AbstractType
 {
@@ -14,10 +14,10 @@ class DegresValidator extends AbstractType
         $builder->add('title');
         $builder->add('description');
         $builder->add('enterprise');
-        $builder->add('dateStart', DateType::class,
+        $builder->add('dateStart', DateTimeType::class,
             ['widget' => 'single_text']
         );
-        $builder->add('dateEnd', DateType::class,
+        $builder->add('dateEnd', DateTimeType::class,
             ['widget' => 'single_text']
         );
     }
@@ -26,7 +26,8 @@ class DegresValidator extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => 'AppBundle\Entity\Degres',
-            'csrf_protection' => false
+            'csrf_protection' => false,
+            'allow_extra_fields' => true
         ]);
     }
 }
