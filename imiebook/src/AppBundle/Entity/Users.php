@@ -68,6 +68,16 @@ class Users extends BaseUser
      */
     private $degres;
 
+        /**
+     * @ORM\ManyToMany(targetEntity="Skills", orphanRemoval=true, cascade={"all"})
+     * @ORM\JoinTable(name="user_skills",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="skills_id", referencedColumnName="id", unique=true)}
+     * )
+     */
+
+     private $skills;
+
     /**
      * @ORM\ManyToMany(targetEntity="Experiences", orphanRemoval=true, cascade={"all"})
      * @ORM\JoinTable(name="user_experiences",
@@ -75,12 +85,15 @@ class Users extends BaseUser
      *     inverseJoinColumns={@ORM\JoinColumn(name="experiences_id", referencedColumnName="id", unique=true)}
      * )
      */
+
     private $experiences;
 
     public function __construct()
     {
         parent::__construct();
         $this->degres = new ArrayCollection();
+        $this->skills = new ArrayCollection();
+        $this->experiences = new ArrayCollection();
     }
 
     /**
@@ -102,6 +115,27 @@ class Users extends BaseUser
     {
         $this->degres->removeElement($degre);
     }
+
+ /**
+     * Add skill
+     * @param Skills $skill [description]
+     */
+    public function addSkill(Skills $skill)
+    {
+        $this->skills[] = $skill;
+
+        return $this;
+    }
+
+    /**
+     * Remove skill
+     * @param  Skills $skill [description]
+     */
+    public function removeSkill(Skills $skill)
+    {
+        $this->skills->removeElement($skill);
+    }
+
 
     /**
      * Add experiences
@@ -287,6 +321,30 @@ class Users extends BaseUser
     public function setDegres($degres)
     {
         $this->degres = $degres;
+
+        return $this;
+    }
+
+        /**
+     * Get the value of Skills
+     *
+     * @return mixed
+     */
+    public function getSkills()
+    {
+        return $this->skills;
+    }
+
+    /**
+     * Set the value of Skills
+     *
+     * @param mixed skills
+     *
+     * @return self
+     */
+    public function setSkills($skills)
+    {
+        $this->skills = $skills;
 
         return $this;
     }

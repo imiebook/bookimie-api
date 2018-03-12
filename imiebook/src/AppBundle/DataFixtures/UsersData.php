@@ -36,6 +36,7 @@ class UsersData extends Fixture implements ContainerAwareInterface, OrderedFixtu
         $user1->setEmail('test@test.fr');
         $user1->setEnabled(true);
         $user1->addDegre($this->getReference('degre1'));
+        $user1->addSkill($this->getReference('skill1'));
         $user1->addExperiences($this->getReference('experiences1'));
 
         $user2 = new Users();

@@ -5,27 +5,18 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
-class DegresValidator extends AbstractType
+class SkillsValidator extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title');
-        $builder->add('description');
-        $builder->add('enterprise');
-        $builder->add('dateStart', DateTimeType::class,
-            ['widget' => 'single_text']
-        );
-        $builder->add('dateEnd', DateTimeType::class,
-            ['widget' => 'single_text']
-        );
+        $builder->add('label');
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AppBundle\Entity\Degres',
+            'data_class' => 'AppBundle\Entity\Skills',
             'csrf_protection' => false,
             'allow_extra_fields' => true
         ]);
