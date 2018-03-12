@@ -4,11 +4,11 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\DateTimeType;
+use FOS\ElasticaBundle\Configuration\Search;
 
 /**
  * @ORM\Table(name="experiences")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ExperiencesRepository")
- * @Search(repositoryClass="AppBundle\Repository\ExperiencesRepository")
  */
 class Experiences
 {

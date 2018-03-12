@@ -4,13 +4,13 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\DateTimeType;
+use FOS\ElasticaBundle\Configuration\Search;
 
 use AppBundle\Entity\Users;
 
 /**
  * @ORM\Table(name="degres")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\DegresRepository")
- * @Search(repositoryClass="AppBundle\Repository\DegresRepository")
  */
 class Degres
 {
