@@ -75,7 +75,6 @@ class Users extends BaseUser
      *     inverseJoinColumns={@ORM\JoinColumn(name="skills_id", referencedColumnName="id", unique=true)}
      * )
      */
-
      private $skills;
 
     /**
@@ -85,8 +84,13 @@ class Users extends BaseUser
      *     inverseJoinColumns={@ORM\JoinColumn(name="experiences_id", referencedColumnName="id", unique=true)}
      * )
      */
-
     private $experiences;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Cities")
+     * @ORM\JoinColumn(name="cities_id", referencedColumnName="id")
+     */
+    private $cities;
 
     public function __construct()
     {
@@ -377,6 +381,29 @@ class Users extends BaseUser
     public function setExperiences($experiences)
     {
         $this->experiences = $experiences;
+
+        return $this;
+    }
+ /**
+     * Get the value of cities
+     *
+     * @return mixed
+     */
+    public function getCities()
+    {
+        return $this->cities;
+    }
+
+    /**
+     * Set the value of cities
+     *
+     * @param mixed cities
+     *
+     * @return self
+     */
+    public function setCities($cities)
+    {
+        $this->cities = $cities;
 
         return $this;
     }

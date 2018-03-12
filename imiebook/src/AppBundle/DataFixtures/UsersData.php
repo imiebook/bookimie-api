@@ -38,6 +38,7 @@ class UsersData extends Fixture implements ContainerAwareInterface, OrderedFixtu
         $user1->addDegre($this->getReference('degre1'));
         $user1->addSkill($this->getReference('skill1'));
         $user1->addExperiences($this->getReference('experiences1'));
+        $user1->setCities($this->getReference('cities1'));
 
         $user2 = new Users();
         $user2->setUsername('imieUmake');
@@ -62,7 +63,7 @@ class UsersData extends Fixture implements ContainerAwareInterface, OrderedFixtu
      */
     public function getOrder()
     {
-        return 3;
+        return 4;
     }
 
 }
