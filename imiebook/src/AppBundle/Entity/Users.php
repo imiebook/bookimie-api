@@ -3,7 +3,11 @@
 namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+
+use AppBundle\Entity\Degres;
+use AppBundle\Entity\Experiences;
 
 /**
  * @ORM\Table(name="fos_user")
@@ -49,15 +53,74 @@ class Users extends BaseUser
     private $description;
 
     /**
-     * @var string
+     * @var boolean
      *
      * @ORM\Column(name="mobility", type="boolean", nullable=true)
      */
     private $mobility;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Degres", orphanRemoval=true, cascade={"all"})
+     * @ORM\JoinTable(name="user_degres",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="degres_id", referencedColumnName="id", unique=true)}
+     * )
+     */
+    private $degres;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Experiences", orphanRemoval=true, cascade={"all"})
+     * @ORM\JoinTable(name="user_experiences",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="experiences_id", referencedColumnName="id", unique=true)}
+     * )
+     */
+    private $experiences;
+
     public function __construct()
     {
         parent::__construct();
+        $this->degres = new ArrayCollection();
+    }
+
+    /**
+     * Add degre
+     * @param Degres $degre [description]
+     */
+    public function addDegre(Degres $degre)
+    {
+        $this->degres[] = $degre;
+
+        return $this;
+    }
+
+    /**
+     * Remove degre
+     * @param  Degres $degre [description]
+     */
+    public function removeDegre(Degres $degre)
+    {
+        $this->degres->removeElement($degre);
+    }
+
+    /**
+     * Add experiences
+     * @param Experiences $experiences
+     */
+    public function addExperiences(Experiences $experiences)
+    {
+        $this->experiences[] = $experiences;
+
+        return $this;
+    }
+
+    /**
+     * Remove experiences
+     * @param  Experiences $experiences
+     */
+    public function removeExperiences(Experiences $experiences)
+    {
+        $this->experiences->removeElement($experiences);
     }
 
     /**
@@ -205,11 +268,59 @@ class Users extends BaseUser
     }
 
     /**
+     * Get the value of Degres
+     *
+     * @return mixed
+     */
+    public function getDegres()
+    {
+        return $this->degres;
+    }
+
+    /**
+     * Set the value of Degres
+     *
+     * @param mixed degres
+     *
+     * @return self
+     */
+    public function setDegres($degres)
+    {
+        $this->degres = $degres;
+
+        return $this;
+    }
+
+    /**
      * This object to array
      * @return array
      */
     public function toArray() {
         return get_object_vars($this);
+    }
+
+    /**
+     * Get the value of Experiences
+     *
+     * @return mixed
+     */
+    public function getExperiences()
+    {
+        return $this->experiences;
+    }
+
+    /**
+     * Set the value of Experiences
+     *
+     * @param mixed experiences
+     *
+     * @return self
+     */
+    public function setExperiences($experiences)
+    {
+        $this->experiences = $experiences;
+
+        return $this;
     }
 
 }

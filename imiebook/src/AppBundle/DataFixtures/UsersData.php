@@ -3,13 +3,16 @@
 namespace AppBundle\DataFixtures;
 
 use AppBundle\Entity\Users;
+use AppBundle\Entity\Degres;
+use AppBundle\Entity\Experiences;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class UsersData extends Fixture implements ContainerAwareInterface
+class UsersData extends Fixture implements ContainerAwareInterface, OrderedFixtureInterface
 {
 
     /**
@@ -32,11 +35,33 @@ class UsersData extends Fixture implements ContainerAwareInterface
         $user1->setSurname('Guillet');
         $user1->setEmail('test@test.fr');
         $user1->setEnabled(true);
+        $user1->addDegre($this->getReference('degre1'));
+        $user1->addExperiences($this->getReference('experiences1'));
+
+        $user2 = new Users();
+        $user2->setUsername('imieUmake');
+        $encoder = $this->container->get('security.password_encoder');
+        $user2->setPassword($encoder->encodePassword($user2, 'p@ssword'));
+        $user2->setLastname('Imie');
+        $user2->setSurname('Book');
+        $user2->setEmail('imieUmake@gmail.com');
+        $user2->setEnabled(true);
+
         $manager->persist($user1);
+        $manager->persist($user2);
 
         $manager->flush();
 
         $this->addReference('user1', $user1);
+        $this->addReference('user2', $user2);
+    }
+
+    /**
+     * Order to trigger fixture
+     */
+    public function getOrder()
+    {
+        return 3;
     }
 
 }

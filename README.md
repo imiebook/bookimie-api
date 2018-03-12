@@ -7,9 +7,17 @@ Docker-symfony gives you everything you need for developing Symfony application.
 ## Routing
 
 ```bash
+# Login
+~ authentification /login_check
+# User
 ~ get all /users
 ~ get user /users/{id}
+# Experiences exemple - identical Skills and Degres
 ~ get experiences of user /users/{id}/experiences
+~ get experience by id /experiences/{id}
+~ post experience /experiences
+~ put experience /experiences/{id}
+~ delete experience /expereinces/{id}
 ```
 
 ## Sources
@@ -127,4 +135,9 @@ $ docker rmi $(docker images -q)
 
 # Delete database
 $ php /var/www/symfony/bin/console doctrine:database:drop --force
+
+# PostgreSQL
+$ docker-compose exec db bash
+$ psql imiebook postgres # connect
+$ \dt # list tables
 ```

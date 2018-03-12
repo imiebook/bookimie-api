@@ -6,6 +6,14 @@ users:
     type:     rest
     resource: AppBundle\Controller\UsersController
 
+degres:
+    type:     rest
+    resource: AppBundle\Controller\DegresController
+
+experiences:
+    type:     rest
+    resource: AppBundle\Controller\ExperiencesController
+
 # app/config/routing.yml
 api_login_check:
     path: /api/login_check

@@ -8,8 +8,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les annotations
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 use AppBundle\Entity\Users;
 use AppBundle\Validator\UsersValidator;
+use AppBundle\Service\UsersService;
 
 class UsersController extends Controller
 {
@@ -26,7 +29,10 @@ class UsersController extends Controller
         $tabUsers = [];
 
         foreach($users as $key => $user) {
-            $tabUsers[] = $user->toArray();
+            // hide children relation
+            $user->setDegres(new ArrayCollection());
+            $user->setExperiences(new ArrayCollection());
+            $tabUsers[] = $user;
         }
 
         return $users;
@@ -46,8 +52,32 @@ class UsersController extends Controller
             return new JsonResponse(['message' => 'Not found'], Response::HTTP_NOT_FOUND);
         }
 
+        // hide children relation
+        $user->setDegres(new ArrayCollection());
+        $user->setExperiences(new ArrayCollection());
+
         return $user;
     }
+
+    /**
+     * @Rest\View()
+     * @Rest\Get("/resetpassword/{email}")
+     */
+     public function getResetPasswordRequestAction(Request $request, \Swift_Mailer $mailer)
+     {
+         $email = $request->get('email');
+         $userManager = $this->get('fos_user.user_manager');
+         $user = $userManager->findUserByEmail($email);
+         if (null === $user) {
+             throw $this->createNotFoundException();
+         }
+
+         $usersService = $this->get('users_service');
+         // reset password with randum string and notify by mail this user
+         $usersService->resetPasswordUser($user);
+
+         return new JsonResponse(['message' => 'Password is reset.'], Response::HTTP_OK);
+     }
 
     /**
      * @Rest\View(statusCode=Response::HTTP_CREATED)
@@ -86,6 +116,8 @@ class UsersController extends Controller
 
         $em->remove($user);
         $em->flush();
+
+        return new JsonResponse(['message' => 'Success of delete request'], Response::HTTP_OK);
     }
 
 }
