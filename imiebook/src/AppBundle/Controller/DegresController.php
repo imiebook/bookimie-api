@@ -73,5 +73,71 @@ class DegresController extends Controller
         return $form;
     }
 
+  /**
+     * @Rest\View()
+     * @Rest\Put("/degres/{id}")
+     */
+    public function putDegresAction(Request $request){
+
+        $user = $this->get('security.token_storage')
+            ->getToken()
+            ->getUser();
+
+        // find degres in list degres of user
+        $degres = null;
+        for ($i = 0; $i < sizeof($user->getDegres()); $i++) {
+            if ($user->getDegres()[$i]->getId() == $request->get('id')) {
+                $degres = $user->getDegres()[$i];
+            }
+        }
+        // no degres return 404
+        if ($degres == null) {
+            return new JsonResponse(['message' => 'Degre not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        $form = $this->createForm(DegresValidator::class, $degres);
+        // Validate data
+        // Keep last data if no new data is present in request
+        $form->submit($request->request->all(), false);
+
+        if ($form->isValid()){
+            $em = $this->get('doctrine.orm.entity_manager');
+            $em->merge($degres);
+            $em->flush();
+            return $degres;
+        }
+        // if error return explication
+        return $form;
+    }
+
+    /**
+     * @Rest\View()
+     * @Rest\Delete("/degres/{id}")
+     */
+    public function deleteDegresAction(Request $request){
+
+        $user = $this->get('security.token_storage')
+            ->getToken()
+            ->getUser();
+
+        // find degres in list degres of user
+        $degres = null;
+        for ($i = 0; $i < sizeof($user->getDegres()); $i++) {
+            if ($user->getDegres()[$i]->getId() == $request->get('id')) {
+                $degres = $user->getDegres()[$i];
+            }
+        }
+        // no degres return 404
+        if ($degres == null) {
+            return new JsonResponse(['message' => 'Degre not found'], Response::HTTP_NOT_FOUND);
+        }
+        // remove experience in liste of user degres
+        $user->removeDegre($degres);
+        $em = $this->get('doctrine.orm.entity_manager');
+        $em->persist($user);
+        $em->flush();
+
+        return new JsonResponse(['message' => 'Success of delete request'], Response::HTTP_OK);
+    }
 
 }
