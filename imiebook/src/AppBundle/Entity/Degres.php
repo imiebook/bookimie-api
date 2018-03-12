@@ -10,6 +10,7 @@ use AppBundle\Entity\Users;
 /**
  * @ORM\Table(name="degres")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\DegresRepository")
+ * @Search(repositoryClass="AppBundle\Repository\DegresRepository")
  */
 class Degres
 {

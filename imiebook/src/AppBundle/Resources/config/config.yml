@@ -17,3 +17,43 @@ fos_user:
     from_email:
         address: "%mailer_user%"
         sender_name: "Imie Book"
+
+fos_elastica:
+    clients:
+        default: { host: elastic, port: 9200 }
+    indexes:
+        app:
+            client: default
+            types:
+
+                user:
+                    properties:
+                        surname: ~
+                        lastname: ~
+                        email: ~
+                    persistence:
+                        # the driver can be orm, mongodb or phpcr
+                        driver: orm
+                        model: AppBundle\Entity\Users
+                        provider: ~
+                        finder: ~
+
+                experiences:
+                    properties:
+                        enterprise: ~
+                    persistence:
+                        # the driver can be orm, mongodb or phpcr
+                        driver: orm
+                        model: AppBundle\Entity\Experiences
+                        provider: ~
+                        finder: ~
+
+                degres:
+                    properties:
+                        enterprise: ~
+                    persistence:
+                        # the driver can be orm, mongodb or phpcr
+                        driver: orm
+                        model: AppBundle\Entity\Degres
+                        provider: ~
+                        finder: ~

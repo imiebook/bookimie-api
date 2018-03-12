@@ -12,6 +12,7 @@ use AppBundle\Entity\Experiences;
 /**
  * @ORM\Table(name="fos_user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UsersRepository")
+ * @Search(repositoryClass="AppBundle\Repository\UsersRepository")
  */
 class Users extends BaseUser
 {

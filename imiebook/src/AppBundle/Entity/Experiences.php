@@ -8,6 +8,7 @@ use Doctrine\DBAL\Types\DateTimeType;
 /**
  * @ORM\Table(name="experiences")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ExperiencesRepository")
+ * @Search(repositoryClass="AppBundle\Repository\ExperiencesRepository")
  */
 class Experiences
 {
