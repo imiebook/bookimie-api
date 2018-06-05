@@ -11,7 +11,9 @@ use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les anno
 use Doctrine\Common\Collections\ArrayCollection;
 
 use AppBundle\Entity\Users;
+use AppBundle\Model\SearchModel;
 use AppBundle\Validator\UsersValidator;
+use AppBundle\Validator\SearchValidator;
 use AppBundle\Service\UsersService;
 
 class UsersController extends Controller
@@ -118,6 +120,38 @@ class UsersController extends Controller
         $em->flush();
 
         return new JsonResponse(['message' => 'Success of delete request'], Response::HTTP_OK);
+    }
+
+    /**
+     * @Rest\View()
+     * @Rest\Post("/users/search")
+     */
+    public function searchUserAction(Request $request)
+    {
+        $search = new SearchModel();
+        $form = $this->createForm(SearchValidator::class, $search);
+
+        $form->submit($request->request->all()); // Validation des données
+
+        if ($form->isValid()) {
+            $em = $this->get('doctrine.orm.entity_manager');
+            $users = $em->getRepository('AppBundle:Users')
+                ->search($search, $this->container->get('fos_elastica.finder.app.user'));
+
+            $tabUsers = [];
+            foreach($users as $user) {
+                $tabUsers[] = [
+                    'id' => $user->getId(),
+                    'surname' => $user->getSurname(),
+                    'lastname' => $user->getLastname(),
+                    'email' => $user->getEmail()
+                ];
+            }
+
+            return $tabUsers;
+        }
+
+        return new JsonResponse(['message' => 'No data'], Response::HTTP_NO_CONTENT);
     }
 
 }

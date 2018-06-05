@@ -21,13 +21,9 @@ services:
         volumes:
             - ./logs/nginx/:/var/log/nginx
         container_name: imiebook
-    elk:
-        image: willdurand/elk
+
+    elasticsearch:
+        image: elasticsearch
+        container_name: elastic
         ports:
-            - 81:80
-        volumes:
-            - ./elk/logstash:/etc/logstash
-            - ./elk/logstash/patterns:/opt/logstash/patterns
-        volumes_from:
-            - php
-            - nginx
+            - 9200:9200

@@ -1,6 +1,12 @@
 <?php
 namespace AppBundle\Repository;
 
+use AppBundle\Model\SearchModel;
+
+use Elastica\Query\BoolQuery;
+use Elastica\Query\Terms;
+use Elastica\Query;
+
 /**
  * UsersRepository
  *
@@ -9,5 +15,14 @@ namespace AppBundle\Repository;
  */
 class UsersRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function search(SearchModel $data, $finder) {
+        // filter : skills, city, enterprise
+        // label : name, surname, title (degres or experiences)
+        // $finder = $this->container->get('fos_elastica.finder.app.user');
+
+        $results = $finder->find($data->getLabel());
+        return $results;
+    }
 
 }
